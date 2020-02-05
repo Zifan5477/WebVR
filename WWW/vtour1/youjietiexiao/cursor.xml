@@ -1,0 +1,72 @@
+<krpano version="1.0.8">
+
+<!--鼠标右键特效:START-->
+
+<contextmenu>				
+		       <item name="" caption="版权所有：江苏中联全景工作室" onclick="openurl('http://www.0518sheji.com', _blank);"/>
+		       <item name="" caption="全屏/退出全屏" onclick="switch(fullscreen);" separator="true"/>
+		       <item name="" caption="旋转/暂停" onclick="switch(autorotate.enabled);"/>
+		       <item name="np" caption="正常视角效果" onclick="view_normal_projection();" separator="true" />
+		       <item name="ap" caption="建筑视角效果" onclick="view_architectural_projection();" />
+		       <item name="fp" caption="鱼眼视角效果" onclick="view_fisheye_projection();" devices="flash|webgl" />
+		       <item name="pp" caption="超广角镜头" onclick="view_pannini_projection();" devices="flash|webgl" />
+		       <item name="lp" caption="小行星视角效果"  onclick="view_littleplanet_projection();" devices="flash|webgl" />
+		</contextmenu>
+        <!--鼠标右键特效:END-->
+
+<!-- 右键特效属性Projection Actions -->
+	<action name="view_normal_projection">
+		if(backup_fovmax,
+			if(view.fov GT backup_fovmax, tween(view.fov,get(backup_fovmax),0.25,default,WAIT); );
+			copy(view.fovmax,backup_fovmax);
+			delete(backup_fovmax);
+		);
+		tween(view.fisheye, 0.0, 0.5, default, set(view.stereographic,false); );
+		tween(view.architectural, 0.0);
+		if(view.vlookat GT 80, tween(view.vlookat, 0); );
+	</action>
+
+	<action name="view_architectural_projection">
+		view_normal_projection();
+		tween(view.architectural, 1.0);
+	</action>
+
+	<action name="view_fisheye_projection">
+		tween(view.architectural, 0.0);
+		if(view.pannini == true, if(view.fisheye GT 0, tween(view.fisheye,0,0.25,default,WAIT); set(view.pannini,false); ); );
+		if(view.stereographic == true, if(view.fisheye GT 0, tween(view.fisheye,0,0.25,default,WAIT); set(view.stereographic,false); ); );
+		set(view.pannini,false);
+		ifnot(backup_fovmax, copy(backup_fovmax, view.fovmax); );
+		tween(view.fovmax, 179, 0.25);
+		tween(view.fisheye, 0.35);
+	</action>
+
+	<action name="view_stereographic_projection">
+		tween(view.architectural, 0.0);
+		if(view.pannini == true, if(view.fisheye GT 0, tween(view.fisheye,0,0.25,default,WAIT); set(view.pannini,false); ); );
+		if(view.stereographic == false, if(view.fisheye GT 0, tween(view.fisheye,0,0.25,default,WAIT); ); );
+		set(view.stereographic,true);
+		set(view.pannini,false);
+		ifnot(backup_fovmax, copy(backup_fovmax, view.fovmax); );
+		tween(view.fovmax, 160, 0.25);
+		tween(view.fisheye, 1.0);
+	</action>
+
+	<action name="view_pannini_projection">
+		tween(view.architectural, 0.0);
+		if(view.fisheye GT 0, tween(view.fisheye,0,0.25,default,WAIT); );
+		set(view.stereographic,true);
+		set(view.pannini,true);
+		ifnot(backup_fovmax, copy(backup_fovmax, view.fovmax); );
+		tween(view.fovmax, 160, 0.25);
+		tween(view.fisheye, 1.0);
+	</action>
+
+	<action name="view_littleplanet_projection">
+		view_stereographic_projection();
+		tween(view.vlookat, 90);
+		tween(view.fov, 150);
+	</action>
+    <!-- 右键特效属性效:END -->
+	
+</krpano>

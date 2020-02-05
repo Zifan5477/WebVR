@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://localhost/vradmin/index1.php -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="noarchive">
+	<link href="./前端网页_files/public.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./前端网页_files/jquery.min.js.下载"></script>
+	<title>前端网页</title>
+
+</head>
+
+<body style="">
+    <div id="dcWrap" style="background-color: rgba(242, 242, 242, 1);">
+		<div id="dcHead">
+			<div id="head">
+				<div class="logo"><a href="">VR管理平台</a></div>
+				<div class="nav">
+					<ul>
+						<li class="M">
+							<a href="JavaScript:void(0);" class="topAdd">新建</a>
+							<div class="drop mTopad">
+								<a href="">会员</a>
+								<a href="">标签</a></div>
+						</li>
+						<li><a href="" target="_blank">查看站点</a></li>
+						<li><a onclick="" href="javascript:;">清除缓存</a></li>
+						<li class="noRight"><a target="_blank" href="">使用文档</a></li>
+    <!--<li class="noRight"><a target="_blank" href="https://shop104464789.taobao.com/?spm=2013.1.1000126.d21.v1D86b">购买官网</a></li>-->
+					</ul>
+					<ul class="navRight">
+						<li class="M noLeft"><a href="JavaScript:void(0);">您好，</a>
+							<div class="drop mUser">
+								<a href="">修改登录密码</a>
+							</div>
+						</li>
+						<li class="noRight"><a href="./loginpage.html">退出</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- Head 结束 -->
+		
+		<div id="dcLeft">
+			<div id="menu">
+				<ul class="top">
+					<li><a href=""><i class="home"></i><em>管理首页</em></a></li>
+				</ul>
+				<ul>
+					<li class="cur"><a href=""><i class="productCat"></i><em>全景图片</em></a></li>
+				</ul>
+				<ul class="bot">
+
+                    <form action="upload_file.php" method="post" enctype="multipart/form-data">
+                        <label for="file">Select picture to upload:</label>
+                        <input type="file" name="file" id="file"><br>
+                        <input type="submit" style="width:50px;height:50px;" name="submit" value="upload">
+                    </form>
+
+					<form action="generate.php" method="post" enctype="multipart/form-data">
+						<label for="file">Select picture to generate panorama:</label>
+						<input type="file" name="file" id="file"><br>
+						<input type="submit" style="width:200px;height:50px;" name="submit" value="generate">
+					</form>
+				<button type="button" style="width:200px;height:50px;">embed image</button>
+				<button type="button" style="width:200px;height:50px;">embed video</button>
+				</ul>
+			</div>
+		</div>
+		<div id="dcMain">
+			<!-- 当前位置 -->
+			<div id="urHere">VR管理平台 | 管理中心<b>  </b><strong style="font-size:  18px;"></strong> </div>
+			<div class="mainBox">
+				<style>
+					.num_edit{
+						float:right;
+						margin-right:10px;
+						cursor: pointer;
+					}
+				</style>
+				<h3>
+					<form action="" method="post">
+						<table>
+							<tbody><tr>
+								<th width="50">
+									<label><input type="checkbox" name="recommon" value="1"> 推荐</label>
+								</th>
+								<th width="60">会员ID:</th>
+								<td>
+									<input class="common-text" placeholder="请输入会员ID" name="uid" value="" size="10" type="text">
+								</td>
+								<th width="60">发布时间:</th>
+								<td>
+									<input id="time_s" name="time_s" value="" size="10" onfocus="ca_show(&#39;time_s&#39;, this, &#39;-&#39;);" readonly="" ondblclick="" type="text">
+									<input id="time_e" name="time_e" value="" size="10" onfocus="ca_show(&#39;time_e&#39;, this, &#39;-&#39;);" readonly="" ondblclick="" type="text">
+								</td>
+								<th width="60">项目名称:</th>
+								<td>
+									<input class="common-text" placeholder="请输入项目名称" name="pname" value="" type="text">
+								</td>
+								<td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
+							</tr>
+							</tbody>
+						</table>
+					</form>
+				</h3>
+				<table class="tableBasic" border="0" cellpadding="8" cellspacing="0" width="100%">
+					<tbody>
+					<tr>
+						<th class="tc">项目ID</th>
+						<th>会员ID</th>
+						<th>缩略图</th>
+						<th>项目名称</th>
+						<th>发布人</th>
+						<th>发布时间</th>
+						<th>是否允许推荐</th>
+						<th>是否推荐</th>
+						<th>排序&nbsp;&nbsp;
+							<img src="./前端网页_files/notice.png" title="默认999,数字越小越靠前" style="cursor: pointer;">
+						</th>
+						<th>浏览量</th>
+						<th>点赞量</th>
+						<th>二维码</th>
+						<th>操作</th>
+					</tr>
+					</tbody>
+				</table>
+				<a href='./vourttest1/tour.html' title='panorama' target="_blank">
+					<img src="./vourttest1/indoor.jpg" width="320" height="220">
+				</a>
+				<div class="list-page">
+					<style type="text/css">
+						.pagebox{
+							text-align:center;
+							margin-top:10px;
+						}
+						.pagebox span{
+							margin-left:-10px;
+						}
+						a.apage{
+							height:25px;line-height:25px;padding:3px 6px;margin-right:10px;border:1px solid #ccc;border-radius:3px;
+						}
+						a.apage.on, a.apage:hover{
+							background: #60BBFF;border:1px solid #75a2c3;color:#fff;
+						}
+					</style>
+				</div>
+
+				<script type="text/javascript">
+					//删除项目
+					function del_project(pid){
+						var pname = $("#p_"+pid).text();
+						if(confirm("确认删除项目“"+pname+"”吗？")){
+							$.post("/vradmin/?m=pic",{act:"delete",pid:pid},function(data){
+								var data = json_decode(data);
+								if(data.status==1){
+									alert('成功删除项目');
+									window.location.reload();
+								}else{
+									alert("删除失败");
+								}
+							});
+						}
+					}
+
+					function edit(pid,type,ele){
+						var num = parseInt($(ele).val());
+						$(ele).addClass('inpEditing');
+						$(ele).val('');
+						if(isNaN(num) || num<1){
+							alert('请输入大于0的整数');
+							$(ele).removeClass('inpEditing');
+							return false;
+						}
+						$.post("/vradmin/?m=pic",{
+							act:"edit_num",
+							type:type,
+							num:num,
+							pid:pid
+						},function(res){
+							res = eval("("+res+")");
+							if (res.flag==1) {
+								$(ele).removeClass('inpEditing');
+								$(ele).val(res.num);
+							}
+						})
+					}
+
+					function edit_recommon(pid){
+						$.post("/vradmin/?m=pic",{
+							act:"edit_recommon",
+							pid:pid
+						},function(res){
+							res = eval("("+res+")");
+							if (res.flag==1) {
+								$("#recomm_"+pid).html('<img src="/static/images/ico/'+(res.recommend==0?"yes":"no")+'.gif" >');
+							}else{
+								alert("操作失败");
+							}
+						})
+					}
+				</script>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="clear"></div>
+	</div>
+
+	<script type="text/javascript" src="./前端网页_files/global.js.下载"></script>
+	<script type="text/javascript" src="./前端网页_files/jquery.tab.js.下载"></script>
+	<script type="text/javascript" src="./前端网页_files/common.js.下载"></script>
+	<script type="text/javascript" src="./前端网页_files/jquery.form.js.下载"></script>
+	<script type="text/javascript" src="./前端网页_files/jquery.form.submit.js.下载"></script>
+	<script type="text/javascript" src="./前端网页_files/calendar.js.下载"></script>
+	<script>
+		function clear_cache(ele) {
+			if(confirm("该操作不会删除/temp/krpano目录下生成的临时切图文件，如果要删除请使用ftp手动删除！")){
+				$(ele).css({
+					"background-image":"url(/static/images/tm_loading.gif)",
+					"background-position":"left center ",
+					"background-repeat":"no-repeat",
+					"background-size":"15px",
+					"padding-left":"20px",
+				});
+				$.get('/vradmin/?m=clear_cache',{
+				},function(res){
+					if (res.status==1) {
+						$(ele).css({
+							"background-image":"none",
+							"padding-left":"15px",
+						});
+					}
+				},'json');
+			}
+		}
+	</script>
+</body>
+</html>

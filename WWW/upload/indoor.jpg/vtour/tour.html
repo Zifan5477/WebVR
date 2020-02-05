@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>krpano - indoor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<style>
+		@-ms-viewport { width:device-width; }
+		@media only screen and (min-device-width:800px) { html { overflow:hidden; } }
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+		 .img-container{
+            width: 180px;
+            height: 130px;
+            background:#F2F2F2;
+            margin-bottom:35px;
+            overflow: hidden;
+            border: 1px solid #000;
+			
+        }
+        .img-container>img{
+		 
+            width: 190px;
+            height: 150px;
+			position: absolute;
+        }
+        .img{
+		   
+            width: 293px;
+            height: 150px;
+        }
+		#pano{position:absolute; left:220px; top:0px; background:#00F; width:800px; height:600px}
+	
+	</style>
+</head>
+<body>
+
+	<div>
+<form name="/" class="card-form" action="upload_file.php" method="post" enctype="multipart/form-data">
+        <div>
+            <div class="img-container"></div>
+            <input class="img-btn" type="file" id="drivingLicence" name="drivingLicence">
+			</br></br>
+			<input type="submit" name="submit" value="upload">
+        </div>
+    </form>
+	
+</div>
+
+<script src="tour.js"></script>
+
+<div id="pano" style="width:100%;height:100%;">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+	<script>
+		embedpano({swf:"tour.swf", xml:"tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});
+	
+		
+		function storename(){
+		    var str1 = "You will embed image ";
+			var str2 = index;
+			var str = str1 + str2;
+			alert(str);
+			return index;
+		
+		}
+	
+		function previewImg(fileInput,imgDiv){
+            if(window.FileReader){//支持FileReader的时候
+                var reader=new FileReader();
+                reader.readAsDataURL(fileInput.files[0]);
+                reader.onload=function(evt){
+                    imgDiv.innerHTML="\<img src="+evt.target.result+"\>";
+					
+					
+                }
+				
+            }else{//兼容ie9-
+                imgDiv.innerHTML='<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + fileInput.value + '\)\';"></div>';
+            }
+        }
+        function selectImg(fileInputs,imgDivs){
+            var checkImg=new RegExp("(.jpg$)|(.png$)|(.bmp$)|(.jpeg$)|(.mp4$)|(.webm$)","i");
+            var i=0;
+            for(;i<fileInputs.length&&i<imgDivs.length;i++){
+                (function(i){//立即执行函数；保存i
+                    fileInputs[i].onchange=function(){
+                        if(checkImg.test(fileInputs[i].value)){
+                            previewImg(this,imgDivs[i]);
+							
+							var temp = fileInputs[i].value;
+							
+							index = temp.substring(12);
+							//alert(index);
+							
+							
+							
+                        }else{
+                            alert("You can only upload files in .jpg .png .bmp .jpeg .mp4 .webm format");
+                        }
+                    };
+                })(i);
+            }
+
+        }
+        /* 为IE6 IE7 IE8增加document.getElementsByClassName函数 */
+        /MSIE\s*(\d+)/i.test(navigator.userAgent);
+        var isIE=parseInt(RegExp.$1?RegExp.$1:0);
+        if(isIE>0&&isIE<9){
+            document.getElementsByClassName=function(cls){
+                var els=this.getElementsByTagName('*');
+                var ell=els.length;
+                var elements=[];
+                for(var n=0;n<ell;n++){
+                    var oCls=els[n].className||'';
+                    if(oCls.indexOf(cls)<0)        continue;
+                    oCls=oCls.split(/\s+/);
+                    var oCll=oCls.length;
+                    for(var j=0;j<oCll;j++){
+                        if(cls==oCls[j]){
+                            elements.push(els[n]);
+                            break;
+                        }
+                    }
+                }
+                return elements;
+            }
+        }
+		
+		
+		
+		
+		
+        var fileInputs=document.getElementsByClassName("img-btn");//文件选择按钮
+        var imgDivs=document.getElementsByClassName("img-container");//图片容器
+        selectImg(fileInputs,imgDivs);
+		
+		
+		
+	
+	
+	
+	</script>
+</div>
+
+</body>
+</html>

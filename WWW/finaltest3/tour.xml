@@ -1,0 +1,469 @@
+﻿<krpano version="1.19" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+   
+	 <plugin name="editor" url="./plugins/editor.swf" keep="true" />
+    <plugin name="options" url="./plugins/options.swf" keep="true" />
+
+	<!-- 
+	
+	 <include url="edit_hotspot.xml" />
+	
+	customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               gyro="true"
+	               webvr="true"
+	               webvr_gyro_keeplookingdirection="false"
+	               webvr_prev_next_hotspots="true"
+	               littleplanetintro="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext="loading..."
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<include url="skin/vtourskin_design_ultra_light.xml" />
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	
+   
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+	</action>
+
+
+	
+	<scene name="scene_______4" title="室内4" onstart="" havevrimage="true" thumburl="panos/______4.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/______4.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
+			<level tiledimagewidth="1280" tiledimageheight="1280">
+				<cube url="panos/______4.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			</level>
+			<level tiledimagewidth="640" tiledimageheight="640">
+				<cube url="panos/______4.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<image if="webvr.isenabled">
+			<cube url="panos/______4.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- place your scene hotspots here -->
+		
+		   <action name="startedit_hotspot" autorun="onstart">
+		set(Sdx3,0.0001);
+	</action>
+
+		
+		
+		<style name="text_SanMih" enabled="false"   url="%SWFPATH%/plugins/textfield.swf" css="font-family:Arial; color:#FFFFFF; font-size:12px;" 
+		    x="0" y="0" padding="3 7" keep="true" align="lefttop" background="false" backgroundcolor="0x2D3E50" backgroundalpha="0.7"			   
+			border="false" bordercolor="0xFFFFFF" borderalpha="0.8" borderwidth="1.0"	roundedge="2"    
+			shadow="5.0"  shadowrange="3.0"  shadowangle="45"  shadowcolor="0x2D3E50"  shadowalpha="0"
+			textshadow="0.0" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0x000000" textshadowalpha="1.0"
+			wordwrap="false" ondown="draglayerSANM();"
+		  />
+		  
+		   <style name="Cont_SanMih" type="container" keep="true" align="lefttop" x="5" y="0" width="110" height="19" zorder="1" alpha="1" enabled="true"  
+            bgcapture="true" bgcolor="0x57606a" bgalpha="0.9" bgshadow="3 3 3 0x000000 0.8" bgroundedge="2"
+            onover="if(nagata !== 1,set(bgcolor,0x808c98););" onup="sbros_cveta_knopok()" onout="if(nagata !== 1,set(bgcolor,0x5e6873);, set(bgcolor,0x808c98);"
+       />
+		
+		
+		<layer name="Cont_osnovnoj" keep="true" style="Cont_SanMih"   x="100" y="10" width="120" height="367" alpha="1" bgalpha="0.6" maskchildren="true"
+         bgborder="1 0xFFFFFF 0.8" bgshadow="4 4 4 0x000000 0.8"  bgroundedge="3" onover="" onout=""
+         ondown="draglayerSANM()" onclick="if(layer[svernutjS].rotate === 0, tween(layer[svernutjS].rotate, 180); tween(layer[Cont_osnovnoj].height, 25);,
+		                           tween(layer[svernutjS].rotate, 0); tween(layer[Cont_osnovnoj].height, 367););
+								   set(Sdx3,0.0001);">
+		 
+                                           	 
+   <layer name="Fon_v_nazvanii" keep="true" style="Cont_SanMih"   x="0" y="0" width="120" height="25" alpha="1" bgalpha="0.8" enabled="false" 
+          bgborder="1 0xFFFFFF 0.8" bgshadow="4 4 4 0x000000 0.8" bgroundedge="2"  bgcolor="0x3c444c" onover="set(bgalpha,1);" onout="set(bgalpha,0.8);"
+          		  />
+                            
+   <layer name="name_edit hotspot"  keep="true" style="text_SanMih" css="font-family:Arial; color:#FFFFFF; font-size:14px;"  enabled="false" zorder="2"
+	        textshadow="5.0"   x="4"  y="1" html="[b]Нotspot[/b] "  />	
+			
+   			
+                                                                      
+  <layer name="svernutjS"   keep="true" align="lefttop" edge="center" x="10" y="12"  url="%SWFPATH%/skin/triangle_ar.png" scale="0.25"  alpha="0.6" zorder="2" rotate="0"
+		 onover="set(alpha,1);" onout="set(alpha,0.6);"
+		 onclick="if(rotate === 0, tween(rotate, 180); tween(layer[Cont_osnovnoj].height, 25);,
+		                           tween(rotate, 0); tween(layer[Cont_osnovnoj].height, 367););
+								   set(Sdx3,0.0001);"
+		/> 		
+			
+                                                 	 
+  <layer name="Cont_m" keep="true" style="Cont_SanMih"   x="0" y="28" width="120" height="340" alpha="1" bgalpha="0"
+         bgborder="1 0xFFFFFF 0.8" bgshadow="4 4 4 0x000000 0.8" bgroundedge="3">
+	                                 
+     <layer name="name_Hotspot" keep="true" style="text_SanMih" align="top" css="font-family:Arial; color:#FFFFFF; font-size:12px;" 
+	        textshadow="5.0"   x="0"  y="5" html="Press on hotspot " />	
+	               	 
+	 <layer name="edit_hotspot1" keep="true" style="Cont_SanMih"  y="30"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,scale,0.1,tit_s,0,1000); set(nagata,1);" >
+           <layer name="S1text" keep="true" style="text_SanMih"   x="0"  y="0" html="scale" /> 
+		   <layer name="tit_s" keep="true"  style="text_SanMih"   x="50" y="0" html=""/>
+	 </layer>
+	               
+	 <layer name="edit_hotspot2" keep="true" style="Cont_SanMih"   y="50"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,width,100,tit_widthS,0,10000); set(nagata,1);" >
+           <layer name="widthStext" keep="true" style="text_SanMih"  x="0"  y="0" html="width" /> 
+		   <layer name="tit_widthS" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	                
+	 <layer name="edit_hotspot3" keep="true" style="Cont_SanMih"   y="70"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,height,100,tit_heightS,0,10000); set(nagata,1);" >
+           <layer name="heightStext" keep="true" style="text_SanMih"  x="0"  y="0" html="height" /> 
+		   <layer name="tit_heightS" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	               
+	 <layer name="edit_hotspot4" keep="true" style="Cont_SanMih"   y="90"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,alpha,3,tit_alphaS,0,2); set(nagata,1);" >
+           <layer name="alphaStext" keep="true" style="text_SanMih"  x="0"  y="0" html="alpha" /> 
+		   <layer name="tit_alphaS" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	                
+	 <layer name="edit_hotspot5" keep="true" style="Cont_SanMih"   y="110"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,rotate,10,tit_rotateS,-180,180); set(nagata,1);" >
+           <layer name="rotateStext" keep="true" style="text_SanMih"  x="0"  y="0" html="rotate" /> 
+		   <layer name="tit_rotateS" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	             
+	 <layer name="edit_hotspot6" keep="true" style="Cont_SanMih"   y="130"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,ath,10,tit_ath,-180,180); set(nagata,1);" >
+           <layer name="athtext" keep="true" style="text_SanMih"  x="0"  y="0" html="ath" /> 
+		   <layer name="tit_ath" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	             
+	 <layer name="edit_hotspot7" keep="true" style="Cont_SanMih"   y="150"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,atv,10,tit_atv,-90,90); set(nagata,1);" >
+           <layer name="atvtext" keep="true" style="text_SanMih"  x="0"  y="0" html="atv" /> 
+		   <layer name="tit_atv" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	            
+	 <layer name="edit_hotspot8" keep="true" style="Cont_SanMih"   y="170"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,rx,50,tit_rx,-180,180); set(nagata,1);" >
+           <layer name="rxtext" keep="true" style="text_SanMih"  x="0"  y="0" html="rx" /> 
+		   <layer name="tit_rx" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	            
+	 <layer name="edit_hotspot9" keep="true" style="Cont_SanMih"   y="190"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,ry,50,tit_ry,-180,180); set(nagata,1);" >
+           <layer name="rytext" keep="true" style="text_SanMih"  x="0"  y="0" html="ry" /> 
+		   <layer name="tit_ry" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	            
+	 <layer name="edit_hotspot10" keep="true" style="Cont_SanMih"   y="210"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,rz,50,tit_rz,-180,180); set(nagata,1);" >
+           <layer name="rztext" keep="true" style="text_SanMih"  x="0"  y="0" html="rz" /> 
+		   <layer name="tit_rz" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	            
+	 <layer name="edit_hotspot11" keep="true" style="Cont_SanMih"   y="230"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,ox,50,tit_ox,-10000,10000); set(nagata,1);" >
+           <layer name="txtext" keep="true" style="text_SanMih"  x="0"  y="0" html="ox" /> 
+		   <layer name="tit_ox" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	            
+	 <layer name="edit_hotspot12" keep="true" style="Cont_SanMih"   y="250"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,oy,50,tit_oy,-10000,10000); set(nagata,1);" >
+           <layer name="oytext" keep="true" style="text_SanMih"  x="0"  y="0" html="oy" /> 
+		   <layer name="tit_oy" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	               
+	 <layer name="edit_hotspot13" keep="true" style="Cont_SanMih"   y="270"  ondown="set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,depth,500,tit_depth,0,100000); set(nagata,1);" >
+           <layer name="depthtext" keep="true" style="text_SanMih"  x="0"  y="0" html="depth" /> 
+		   <layer name="tit_depth" keep="true" style="text_SanMih"  x="50" y="0" html=""/>
+	 </layer>
+	 
+	                                                              
+	 <layer name="edit_hotspot14" keep="true" style="Cont_SanMih"    y="295"  bgcolor="0x762f2f"
+        	ondown="set(bgcolor,0xb45d5d); izmena_skorostySM(); set(nagata,1);" onup="set(bgcolor,0x762f2f); set(nagata,0);"
+            onover="if(nagata !== 1,set(bgcolor,0xb45d5d););" onout="if(nagata !== 1,set(bgcolor,0x762f2f);, set(bgcolor,0xb45d5d); "	>
+           <layer name="speedSM" keep="true" style="text_SanMih"  x="0"  y="0" html="speed" />
+		   <layer name="tit_speedSM" keep="true" style="text_SanMih"  x="50" y="0" html="10"/>
+     </layer>
+	                                 
+	 <layer name="edit_hotspot15" keep="true" style="Cont_SanMih"    y="315"  bgcolor="0x2f764a" ondown="set(bgcolor,0x39823e);showlog(); warningSM();" onup="set(bgcolor,0x2f764a)"
+            onover="set(bgcolor,0x5db463);"  onout="set(bgcolor,0x2f764a);">
+           <layer name="rxytext" keep="true" style="text_SanMih"  x="0"  y="0" html="copy code" />
+     </layer>
+	 
+  </layer>  
+</layer>   
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<layer name="box1" keep="true" align="center" jianting="10" tiao="1"  sub="0.1" sub1="0.2" scale="0.2" url="vtourskin_hotspot.png" onclick="imagename();"/>
+        <layer name="box3" iname="0" />
+		<layer name="box2" keep="true" align="left"  scale="0.05" url="add.jpg" onclick="addimage();"/>
+        <layer name="box4" keep="true" align="left" y="50" scale="0.08" url="addvideo.jpg" onclick="addvideo();"/>
+		
+
+ <action name="addimage">
+	addhotspot('image');
+	set(hotspot['image'].url,get:layer['box3'].iname);
+	set(hotspot['image'].ath,100);
+	set(hotspot['image'].atv,150);
+	set(hotspot['image'].distorted,true);
+	set(hotspot['image'].scale, 0.3);
+	set(hotspot['image'].ondown, draghotspotSM());
+  </action>
+  
+  <action name="addvideo">
+	addhotspot('video');
+	set(hotspot['video'].url,plugins/videoplayer.js);
+	set(hotspot['video'].videourl,cats.mp4|cats.webm);
+	set(hotspot['video'].ath,200);
+	set(hotspot['video'].atv,150);
+	set(hotspot['video'].scale,0.3);
+    set(hotspot['video'].loop,true);
+	set(hotspot['video'].edge,center);
+	set(hotspot['video'].distorted,true);
+	set(hotspot['video'].pausedonstart,true);
+	set(hotspot['video'].onclick,togglepause());
+	set(hotspot['video'].ondown, draghotspotSM());
+  </action>
+  
+<action name="imagename">
+
+	jsget(layer['box3'].iname, storename());
+
+</action>  
+  
+
+ 
+ 
+   <events name="sbros_cveta_knopokSM" onmouseup="sbros_cveta_knopok()"/>
+	
+    <action name="sbros_cveta_knopok" >
+	        for(set(i,0), i LT 14, inc(i), txtadd(edit_hotspotN,edit_hotspot,get(i)); set(layer[get(edit_hotspotN)].bgcolor, 0x5e6873); );
+			set(nagata,0);
+	</action>  
+	 
+   
+                                                                     
+    <action name="izmena_parametrSM">
+		copy(drag_currentx, x);
+		copy(drag_stagex, mouse.stagex);
+		asyncloop(pressed, sub(dx, mouse.stagex, drag_stagex);
+						   mul(dx2,dx,%5);
+						   mul(dx2,get(Sdx3));
+						   add(%1[%2].%4, get(dx2));
+						   if(%4 === %4, clamp(%1[%2].%4, %7, %8););                                                            
+						   copy(print_H1, %1[%2].%4);
+						   roundval(print_H1,2);
+						   set(layer[%6].html, get(print_H1));
+					 );
+	</action>
+	
+	                                                             
+    <action name="izmena_skorostySM">
+		copy(Sdrag_currentx, x);
+		copy(Sdrag_stagex, mouse.stagex);
+		asyncloop(pressed, sub(Sdx, mouse.stagex, Sdrag_stagex);
+						   mul(Sdx2,Sdx,0.0005);
+						   mul(Sdx2,0.00001);
+						   add(Sdx3,Sdx2);
+						   if(Sdx3 LT 0, set(Sdx3,0););
+						   if(Sdx3 GT 0.0001, set(Sdx3,0.0001););
+						   mul(speed_N,Sdx3,100000);
+						   roundval(speed_N,2);
+						   set(layer[tit_speedSM].html, get(speed_N));
+					 );
+	</action>
+	
+	                                                                                                           
+    <action name="draghotspotSM">
+            spheretoscreen(ath, atv, hotspotcenterx, hotspotcentery, 'l');
+		    sub(drag_adjustx, mouse.stagex, hotspotcenterx);
+		    sub(drag_adjusty, mouse.stagey, hotspotcentery);
+		    asyncloop(pressed,
+			          sub(dx, mouse.stagex, drag_adjustx);
+			          sub(dy, mouse.stagey, drag_adjusty);
+			          screentosphere(dx, dy, ath, atv);
+					  set(name_Hotspot_San, calc('' + name + ''));
+					  roundval(ath,2);
+					  roundval(atv,2);
+					  roundval(rx,2);
+					  roundval(ry,2);
+					  roundval(rz,2);
+					  roundval(ox,2);
+					  roundval(oy,2);
+					  roundval(tz,2);
+					  roundval(rotate,2);
+					  roundval(scale,3);
+					  roundval(alpha,2);
+					  if(width  != prop,esli_ne_propSMHotspot(width,2,0);, esli_propSMHotspot(width,2););
+					  if(height != prop,esli_ne_propSMHotspot(height,3,0);, esli_propSMHotspot(height,3););
+                      roundval(depth);					  
+					  set(layer[tit_ath].html, get(ath));
+					  set(layer[tit_atv].html, get(atv));
+					  set(layer[tit_rx].html, get(rx));
+					  set(layer[tit_ry].html, get(ry));
+					  set(layer[tit_rz].html, get(rz));
+					  set(layer[tit_ox].html, get(ox));
+					  set(layer[tit_oy].html, get(oy));
+					  set(layer[tit_tz].html, get(tz));
+					  set(layer[tit_rotateS].html, get(rotate));
+					  set(layer[tit_s].html, get(scale));
+					  set(layer[tit_alphaS].html, get(alpha));
+					  set(layer[tit_widthS].html, get(width));
+					  set(layer[tit_heightS].html, get(height));
+					  set(layer[tit_depth].html, get(depth));
+		             );
+					 txtadd(nameH,&#8220;,get(name_Hotspot_San),&#8221;);
+					 set(layer[name_Hotspot].html, get(nameH));
+					 
+					
+					 trace('name="',name_Hotspot_San,'" scale="',scale,'" width="',width,'" height="',height,'" alpha="',alpha,'" rotate="',rotate, '" depth="',depth,
+					                                 '" ath="',ath,'" atv="',atv,'" rx="',rx,'" ry="',ry,'" rz="',rz,'" ox="',ox,'" oy="',oy,'"');
+	</action>
+	
+	                       
+	<action name="esli_ne_propSMHotspot">
+		    roundval(%1);                     
+			set(layer[edit_hotspot%2].ondown, set(bgcolor,0x808c98); izmena_parametrSM(hotspot,get(name_Hotspot_San),0,%1   ,100,tit_%1S,0,10000); set(nagata,1););
+	</action>
+	
+	                            
+	<action name="esli_propSMHotspot">
+			set(layer[edit_hotspot%2].ondown, set(bgcolor,0x808c98); set(nagata,1););
+	</action>
+	
+	                                                                     
+	<action name="draglayerSANM">
+		    copy(drag_currentx, x);
+		    copy(drag_currenty, y);
+		    copy(drag_stagex, mouse.stagex);
+		    copy(drag_stagey, mouse.stagey);
+		    indexoftxt(align_contains_right, get(align), 'right');
+		    indexoftxt(align_contains_bottom, get(align), 'bottom');
+		    calc(drag_align_x, align_contains_right GE 0 ? -1 : +1);
+		    calc(drag_align_y, align_contains_bottom GE 0 ? -1 : +1);
+		    asyncloop(pressed,
+			          calc(x, drag_currentx + (mouse.stagex - drag_stagex)*drag_align_x);
+			          calc(y, drag_currenty + (mouse.stagey - drag_stagey)*drag_align_y);
+		             );
+	</action>
+	
+	<action name="warningSM" >
+	        trace(注意! 点击对应热点显示热点的最新设置.);
+	</action>  
+ 
+	
+  
+  
+  
+  
+  
+  
+  
+
+		
+	 <hotspot name="videospot"
+      url.html5="%SWFPATH%/plugins/videoplayer.js"
+      url.flash="%SWFPATH%/plugins/videoplayer.swf"
+      videourl="cats.mp4|cats.webm"
+      posterurl="cats-poster.jpg"		
+      distorted="true"
+      ath="1.960"
+      atv="-7.704"
+      edge="center"
+      width="560" height="320" scale="0.586152"
+      rx="0"
+      ry="0"
+      rz="0"
+      loop="true"
+      pausedonstart="true"
+      onclick="togglepause();"
+	  ondown="draghotspotSM();"
+      />
+	  
+      <hotspot name="imagespot1"          
+       url="ssby.jpg"		            
+       distorted="true"
+       ath="-119.097"            
+       atv="-18.410"            
+       edge="center"         
+       width="200" height="180"  
+       scale="0.586152"          
+       rx="-15" 
+       ry="40"   
+       rz="0"
+       ondown="draghotspotSM();"
+       />    
+
+	</scene>
+
+	<scene name="scene_______5" title="室内5" onstart="" havevrimage="true" thumburl="panos/______5.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0" vlookat="0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/______5.tiles/preview.jpg" />
+
+		<image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
+			<level tiledimagewidth="512" tiledimageheight="512">
+				<cube url="panos/______5.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			</level>
+		</image>
+
+		<image if="webvr.isenabled">
+			<cube url="panos/______5.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- place your scene hotspots here -->
+	 
+
+	</scene>
+
+
+</krpano>

@@ -1,0 +1,135 @@
+<krpano spotindex="0" >
+
+	<include url="showtext.xml"/>
+
+	<preview type="grid(cube,16,16,512,0xCCCCCC,0xeeeeee,0x999999);"/>
+
+	<!-- the action for dragging the hotspot - call it once in the ondown event -->
+	<action name="draghotspot">
+		spheretoscreen(ath, atv, hotspotcenterx, hotspotcentery, 'l');
+		sub(drag_adjustx, mouse.stagex, hotspotcenterx);
+		sub(drag_adjusty, mouse.stagey, hotspotcentery);
+		asyncloop(pressed,
+			sub(dx, mouse.stagex, drag_adjustx);
+			sub(dy, mouse.stagey, drag_adjusty);
+			screentosphere(dx, dy, ath, atv);		
+		  );
+	</action>
+
+	<action name="add_hotspot">
+
+		if(tooltiptrue === null AND removehotspottrue === null AND movehotspottrue === null,
+
+			addhotspot(calc('newspot' + spotindex));
+			set(hotspot[calc('newspot' + spotindex)].url,hotspot.png);
+			set(hotspot[calc('newspot' + spotindex)].ath,get(view.hlookat));
+			set(hotspot[calc('newspot' + spotindex)].atv,get(view.vlookat));
+			set(hotspot[calc('newspot' + spotindex)].scale,0.5);
+			set(hotspot[calc('newspot' + spotindex)].zoom,true);
+			set(hotspot[calc('newspot' + spotindex)].ondown, draghotspot());
+			txtadd(tooltipname, 'tooltip_', get(hotspot[calc('newspot' + spotindex)].name));
+		    addplugin(get(tooltipname));
+		    txtadd(plugin[get(tooltipname)].parent, 'hotspot[', calc('newspot' + spotindex), ']');
+		    set(plugin[get(tooltipname)].url,'%SWFPATH%/plugins/textfield.swf');
+		    set(plugin[get(tooltipname)].align,righttop);
+		    set(plugin[get(tooltipname)].edge,leftbottom);
+		    set(plugin[get(tooltipname)].x,0);
+		    set(plugin[get(tooltipname)].y,0);
+		    set(plugin[get(tooltipname)].autowidth,true);
+		    set(plugin[get(tooltipname)].autoheight,true);
+		    set(plugin[get(tooltipname)].vcenter,true);
+		    set(plugin[get(tooltipname)].background,true);
+		    set(plugin[get(tooltipname)].backgroundcolor,0x000000);
+		    set(plugin[get(tooltipname)].roundedge,5);
+		    set(plugin[get(tooltipname)].backgroundalpha,0.65);
+		    set(plugin[get(tooltipname)].padding,5);
+		    set(plugin[get(tooltipname)].border,false);
+		    set(plugin[get(tooltipname)].glow,0);
+		    set(plugin[get(tooltipname)].glowcolor,0xFFFFFF);
+		    set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei;  font-size:14px;');
+		    if(device.mobile,set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:MicrosoftYahei; font-weight:bold; font-size:14px;');
+		    	);
+		    set(plugin[get(tooltipname)].textshadow,0);
+		    set(plugin[get(tooltipname)].textshadowrange,6.0);
+		    set(plugin[get(tooltipname)].textshadowangle,90);
+		    set(plugin[get(tooltipname)].html,确定);  
+		    set(plugin[get(tooltipname)].enabled,true);
+		    def(tooltiptrue, boolean, true);
+		    txtadd(plugin[get(tooltipname)].onclick,'delete(tooltiptrue);set(hotspot[',calc('newspot' + spotindex),'].ondown, null);removeplugin(get(tooltipname));');
+		    
+			inc(spotindex);
+
+
+		);
+
+	</action>
+
+	<action name="remove_hotspot">
+
+		if(tooltiptrue === null AND removehotspottrue === null AND movehotspottrue === null,
+			set(layer[button_removehotspot_done].visible,true);
+			def(removehotspottrue, boolean, true);
+		    for(set(i,0),i LT spotindex,inc(i),
+		          set(hotspot[calc('newspot' + i)].onclick,removehotspot(get(name)));
+		    	);
+	    );
+
+	</action>
+
+	<action name="remove_hotspot_done">
+
+		set(visible,false);
+		delete(removehotspottrue);
+	    for(set(i,0),i LT spotindex,inc(i),
+	          set(hotspot[calc('newspot' + i)].onclick,null);
+	    	);
+
+	</action>
+
+	<action name="move_hotspot">
+
+		if(tooltiptrue === null AND removehotspottrue === null AND movehotspottrue === null,
+			set(layer[button_movehotspot_done].visible,true);
+			def(movehotspottrue, boolean, true);
+		    for(set(i,0),i LT spotindex,inc(i),
+		          set(hotspot[calc('newspot' + i)].ondown,draghotspot(););
+		    	);
+	    );
+
+	</action>
+
+	<action name="move_hotspot_done">
+
+		set(visible,false);
+		delete(movehotspottrue);
+	    for(set(i,0),i LT spotindex,inc(i),
+	          set(hotspot[calc('newspot' + i)].ondown,null);
+	    	);
+
+	</action>
+
+	
+	<layer name="button_addhotspot" style="buttonstyle" x="-120" html="add hotspot" onclick="add_hotspot();"/>	
+
+	<layer name="button_movehotspot" style="buttonstyle" x="0" html="mive hotspot" onclick="move_hotspot();">	
+
+		<layer name="button_movehotspot_done" style="buttonstyle" align="top" edge="bottom" css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:14px;" y="-10" html="确定" width="50" visible="false"
+		      onclick="move_hotspot_done();"  />		
+
+    </layer>
+
+	<layer name="button_removehotspot" style="buttonstyle" x="120"  html="delete hotspot" onclick="remove_hotspot();">	
+        
+        <layer name="button_removehotspot_done" style="buttonstyle" align="top" edge="bottom" css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:14px;" y="-10" html="确定" width="50" visible="false"
+              onclick="remove_hotspot_done();"  />
+
+	</layer>
+			
+
+	<style name="buttonstyle"  keep="true" url="%SWFPATH%/plugins/textfield.swf" children="true" enabled="true" align="bottom" y="50"  width="100" height="36" vcenter="true"
+		           border="false" background="true"  backgroundcolor="0x000000" backgroundalpha="0.7" roundedge="5"
+			       css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:18px;" zorder="1" 
+			            
+			        />	
+ 
+</krpano>

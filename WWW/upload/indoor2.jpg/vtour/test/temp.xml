@@ -1,0 +1,58 @@
+
+<include url="edit_hotspot.xml" />
+<!--<include url="addspot.xml" /> -->
+<!--<plugin name="editor" url="%SWFPATH%/plugins/editor.swf" keep="true" />
+<plugin name="editor" url="plugins/editor.swf" keep="true" /> 
+-->
+
+
+<area mode="align"
+	align="lefttop"
+	x="350"
+	y="0"
+	width="calc:stagewidth-350"
+	height="100%"
+/>
+ <plugin name="editor" url="plugins/editor.swf" keep="true" align="bottom" x="0" y="16" />
+<layer name="box1" type="container" parent="stage" align="lefttop" x="50" y="50" width="250" height="250" bgcolor="0x3c3c3c" bgalpha="0.5" bgcapture="true" maskchildren="true" ondown="draglayer();">
+<layer name="txt1" style="text" html="drag me" align="lefttop" />
+<layer name="box2" type="container" align="center" x="0" y="0" width="100" height="100" bgcolor="0x44AADD" bgalpha="1.0" bgcapture="true" ondown="draglayer();"/>
+<layer name="txt2" style="text" html="drag me" align="center" />
+</layer>
+<layer name="txt3" style="text" html="maskchildren=true" align="leftbottom" />
+</layer>
+
+<layer name="box4" type="container" bgalpha="0.5" bgcapture="true"  width="50" height="50" align="center" onclick="switch(fullscreen)"/>
+
+	
+<hotspot name="spot1" url="sun.jpg" height="250" weidth="10" ath="44.658" atv="10.599" linkedscene="scene_dji_0279_panorama1" ondown="draghotspotSM();"/>
+
+<!---
+<layer name="button" 
+type="container"
+width="50" 
+height="50"
+html="Click"     
+align="lefttop" 
+y="0"   
+visible="true"
+onclick= "Hello();"     />--->
+
+
+<!-- 
+<area mode="align"
+align="rightbottom"
+x="0"
+y="0"
+width="85%"
+height="90%"
+/> 
+ 
+<preview type="grid(CUBE,16,16,512,0xCCCCCC,0xFFFFFF,0x999999);"/>
+
+
+
+<layer name="box2" type="container" bgalpha="0.5" bgcapture="true"  width="50" height="50" align="center" onclick="switch(fullscreen)"/>
+<layer name="box1" type="container" parent = "stage" bgalpha="0.5" bgcolor="0x3c3c3b" bgcapture="true"  width="50" height="50" align="left" onclick="switch(fullscreen)"/>
+ 
+ -->
